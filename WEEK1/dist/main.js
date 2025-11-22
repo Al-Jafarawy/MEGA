@@ -9,25 +9,22 @@ const variables_1 = require("./variables");
 const tasks = [];
 const taskHistory = [];
 let taskSummary = [0, 0, 0];
-// مساعد للعثور على فهرس
 function findIndexById(id) {
-    return tasks.findIndex(t => t.id === id);
+    return tasks.findIndex((t) => t.id === id);
 }
-// TODO #18: addTask(title, status='pending', ...tags)
 let nextId = 1;
-function addTask(title, status = 'pending', ...tgs) {
+function addTask(title, status = "pending", ...tgs) {
     const task = {
         id: nextId++,
         title,
         status,
-        tags: tgs.length ? tgs : undefined
+        tags: tgs.length ? tgs : undefined,
     };
     tasks.push(task);
     taskHistory.push([[task.id, task.title, task.status]]);
     updateSummary();
     return task;
 }
-// TODO #19: updateTask(id, newTitle?, newStatus?)
 function updateTask(id, newTitle, newStatus) {
     const i = findIndexById(id);
     if (i === -1)
@@ -40,41 +37,37 @@ function updateTask(id, newTitle, newStatus) {
     updateSummary();
     return tasks[i];
 }
-// TODO #20: addMultipleTasks(...titles)
 function addMultipleTasks(...titles) {
-    return titles.map(t => addTask(t));
+    return titles.map((t) => addTask(t));
 }
-// TODO #21: استخدام arrow في الطباعة
 function printTasks() {
-    console.log('Tasks list:');
-    tasks.forEach(task => {
-        console.log(`- [${task.id}] ${task.title} (${task.status})${task.tags ? ' #' + task.tags.join(',') : ''}`);
+    console.log("Tasks list:");
+    tasks.forEach((task) => {
+        console.log(`- [${task.id}] ${task.title} (${task.status})${task.tags ? " #" + task.tags.join(",") : ""}`);
     });
 }
-// TODO #22: تحديث الملخّص
 function updateSummary() {
-    const pending = tasks.filter(t => t.status === 'pending').length;
-    const done = tasks.filter(t => t.status === 'done').length;
-    const blocked = tasks.filter(t => t.status === 'blocked').length;
+    const pending = tasks.filter((t) => t.status === "pending").length;
+    const done = tasks.filter((t) => t.status === "done").length;
+    const blocked = tasks.filter((t) => t.status === "blocked").length;
     taskSummary = [pending, done, blocked];
 }
-// TODO #23: سيناريو تجريبي
 function demo() {
     console.log(`${variables_1.appName} v${variables_1.version}`);
-    addTask('Wash dishes');
-    addTask('Write report');
-    addTask('Call client');
-    updateTask(2, undefined, 'done');
-    (0, arrays_1.addTag)('daily');
-    (0, arrays_1.addTag)('office');
+    addTask("Wash dishes");
+    addTask("Write report");
+    addTask("Call client");
+    updateTask(2, undefined, "done");
+    (0, arrays_1.addTag)("daily");
+    (0, arrays_1.addTag)("office");
     printTasks();
-    console.log('\nHistory log (snapshots):');
+    console.log("\nHistory log (snapshots):");
     taskHistory.forEach((snap, idx) => {
         console.log(`Snapshot ${idx + 1}:`);
         snap.forEach(([id, title, status]) => {
             console.log(`  * [${id}] ${title} -> ${status}`);
         });
     });
-    console.log('\nSummary counts [pending, done, blocked]:', taskSummary);
+    console.log("\nSummary counts [pending, done, blocked]:", taskSummary);
 }
 demo();
