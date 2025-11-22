@@ -6,6 +6,5 @@ exports.appName = 'TS Task Manager';
 exports.version = 1.0;
 exports.debugMode = false;
 // TODO #2: any + تعليق توضيحي
-// استخدمنا any مرة واحدة لشرح، لكن تجنبه في الكود الحقيقي لأنه يلغي فائدة الـ types.
 exports.unsafeValue = null;
 exports.defaultPriority = 'medium';
